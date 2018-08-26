@@ -12,20 +12,20 @@ for a subdomain.
 
 You have to create two subdomains
 
-*dyndns.example.com*
+**dyndns.example.com**
 
 This is the main domain which will keep all subdomains
 like homeserver.dyndns.example.com, ...
 
-*Host:* dyndns
-*Type:* NS
-*Destination:* ns.example.com
+**Host:** dyndns
+**Type:** NS
+**Destination:** ns.example.com
 
-*ns.example.com*
+**ns.example.com**
 
-*Host:* ns
-*Type:* A
-*Destination:* 123.123.123.123
+**Host:** ns
+**Type:** A
+**Destination:** 123.123.123.123
 
 ### Update envfile
 
