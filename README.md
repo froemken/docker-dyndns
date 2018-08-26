@@ -17,15 +17,15 @@ You have to create two subdomains
 This is the main domain which will keep all subdomains
 like homeserver.dyndns.example.com, ...
 
-**Host:** dyndns
-**Type:** NS
-**Destination:** ns.example.com
+*Host: dyndns
+*Type: NS
+*Destination: ns.example.com
 
 **ns.example.com**
 
-**Host:** ns
-**Type:** A
-**Destination:** 123.123.123.123
+*Host: ns
+*Type: A
+*Destination: 123.123.123.123
 
 ### Update envfile
 
@@ -35,8 +35,10 @@ Set `PUBLIC_IP_ADDRESS` to the IP address of your server.
 
 ### Start server
 
-`make build`
-`make run`
+```
+make build
+make run
+```
 
 ### ToDo
 
@@ -44,8 +46,10 @@ Currently I don't have a Webserver configured, so it is not possible
 to update the IP from your Router/FritzBox.
 
 You can use `make console` and start server manually with
-`/root/start.sh`
-`/usr/sbin/named`
-`/root/nsclient_update.sh [newSubDomain] [newIpAddress]`
+```
+/root/start.sh
+/usr/sbin/named
+/root/nsclient_update.sh [newSubDomain] [newIpAddress]
+```
 
 F.e. `/root/nsclient_update.sh homeserver 123.456.987.654`
