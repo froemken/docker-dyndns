@@ -1,16 +1,33 @@
-FROM alpine:latest
+FROM alpine:3.8
 
 MAINTAINER Stefan Froemken <froemken@gmail.com>
 
-RUN apk --update add bind
-RUN apk --update add bind-tools
-RUN apk --update add iputils
+RUN apk --update add \
+	lighttpd \
+	bind \
+	bind-tools \
+	iputils \
+	php7 \
+	php7-iconv \
+	php7-cgi \
+	php7-fpm \
+	fcgi && \
+	rm -rf /var/cache/apk/*
 
-EXPOSE 53
+EXPOSE 53 80
 
+RUN adduser www-data -G www-data -H -s /bin/false -D
+RUN addgroup www-data named
+COPY lighttpd.conf /etc/lighttpd/lighttpd.conf
+COPY www.conf /etc/php7/php-fpm.d/www.conf
 COPY named.conf /etc/bind/named.conf
 COPY setup.sh /root/setup.sh
+COPY ./www /var/www
 RUN chmod +x /root/setup.sh
+RUN rm -rf /var/www/localhost
 
-CMD ["sh", "-c", "/root/setup.sh"]
-CMD ["named", "-c", "/etc/bind/named.conf", "-g", "-u", "named"]
+CMD \
+	/bin/sh -c /root/setup.sh && \
+	/usr/sbin/named -c /etc/bind/named.conf -u named && \
+	/usr/sbin/php-fpm7 && \
+	/usr/sbin/lighttpd -D -f /etc/lighttpd/lighttpd.conf

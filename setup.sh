@@ -38,21 +38,21 @@ $ZONE	IN	SOA	${PUBLIC_DNS_SERVER}. root.localhost. (
 EOF
 fi
 
-if [ ! -f /root/nsclient_update.sh ]
+if [ ! -f /var/bind/nsclient_update.sh ]
 then
 	echo "Creating nsclient_update.sh..."
-	cat > /root/nsclient_update.sh <<EOF
+	cat > /var/bind/nsclient_update.sh <<EOF
 #!/bin/sh
 HOST=\$1.${ZONE}.
 ADDR=\$2
-echo "server 127.0.0.1" > /root/nsupdate.txt
-echo "debug yes" >> /root/nsupdate.txt
-echo "zone $ZONE" >> /root/nsupdate.txt
-echo "update delete \$HOST A" >> /root/nsupdate.txt
-echo "update add \$HOST 180 A \$ADDR" >> /root/nsupdate.txt
-echo "show" >> /root/nsupdate.txt
-echo "send" >> /root/nsupdate.txt
-nsupdate -k /etc/bind/tsig-key.private /root/nsupdate.txt
+echo "server 127.0.0.1" > /var/bind/nsupdate.txt
+echo "debug yes" >> /var/bind/nsupdate.txt
+echo "zone $ZONE" >> /var/bind/nsupdate.txt
+echo "update delete \$HOST A" >> /var/bind/nsupdate.txt
+echo "update add \$HOST 180 A \$ADDR" >> /var/bind/nsupdate.txt
+echo "show" >> /var/bind/nsupdate.txt
+echo "send" >> /var/bind/nsupdate.txt
+nsupdate -k /etc/bind/tsig-key.private /var/bind/nsupdate.txt
 EOF
 fi
 
@@ -60,4 +60,4 @@ chown root:named /var/bind
 chown named:named /var/bind/*
 chmod 770 /var/bind
 chmod 644 /var/bind/*
-chmod +x /root/nsclient_update.sh
+chmod +x /var/bind/nsclient_update.sh
