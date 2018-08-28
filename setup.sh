@@ -38,7 +38,7 @@ $ZONE	IN	SOA	${PUBLIC_DNS_SERVER}. root.localhost. (
 EOF
 fi
 
-if [ ! -f /var/bind/nsclient_update.sh ]
+if [ ! -f /root/nsclient_update.sh ]
 then
 	echo "Creating nsclient_update.sh..."
 	cat > /var/bind/nsclient_update.sh <<EOF

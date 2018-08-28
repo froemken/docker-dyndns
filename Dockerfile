@@ -9,6 +9,7 @@ RUN apk --update add \
 	iputils \
 	php7 \
 	php7-iconv \
+	php7-json \
 	php7-cgi \
 	php7-fpm \
 	fcgi && \
@@ -18,6 +19,7 @@ EXPOSE 53 80
 
 RUN adduser www-data -G www-data -H -s /bin/false -D
 RUN addgroup www-data named
+COPY users.json /var/bind/users.json
 COPY lighttpd.conf /etc/lighttpd/lighttpd.conf
 COPY www.conf /etc/php7/php-fpm.d/www.conf
 COPY named.conf /etc/bind/named.conf
