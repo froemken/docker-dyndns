@@ -17,8 +17,7 @@ RUN apk --update add \
 
 EXPOSE 53 80
 
-RUN adduser www-data -G www-data -H -s /bin/false -D
-RUN addgroup www-data named
+RUN addgroup lighttpd named
 COPY users.json /var/bind/users.json
 COPY lighttpd.conf /etc/lighttpd/lighttpd.conf
 COPY www.conf /etc/php7/php-fpm.d/www.conf

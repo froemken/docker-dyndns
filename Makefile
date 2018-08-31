@@ -6,3 +6,6 @@ build:
 
 console:
 	docker run -it -p 53:53 -p 53:53/udp -p 5380:80 --env-file envfile --rm sfroemken/bind /bin/sh
+
+exec:
+	docker exec -it bind9 /bin/sh
