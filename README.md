@@ -72,17 +72,17 @@ make run
 
 The URI has to look like that, if you use FritzBox:
 
-`http://sfroemken.de:5380/update.php?subdomain=<domain>&username=<username>&password=<pass>&ip=<ipaddr>`
+`http://your-domain.de:5380/update.php?subdomain=<domain>&username=<username>&password=<pass>&ip=<ipaddr>`
 
 else you have to replace the placeholders with the original values
 
 ### ToDo
 
-Currently I don't have support for IPv6.
+Currently I don't have implemented support for IPv6.
 
 There is no check to prevent a mass of update requests within seconds, which may crash your server.
 
-There is no check, if someone tries tp bruteforce the usernames and passwords.
+There is no check, if someone tries to bruteforce the usernames and passwords.
 
 ### DEV
 
@@ -103,3 +103,24 @@ Use this to update your Zone entry:
 ```
 
 F.e. `/root/nsclient_update.sh homeserver 123.456.987.654`
+
+### BUG: Update does not work
+
+Login into my docker image
+
+```
+make exec
+```
+
+Check owner and group for directory `/var/bind/`. I should look like:
+
+```
+drw-r--r--    2 named    named         4096 Aug 31 20:35 dyn
+-rw-r--r--    1 named    named         2878 May 21 22:30 named.ca
+-rwxr-xr-x    1 named    named          452 Nov  9 23:32 nsclient_update.sh
+-rw-r--r--    1 lighttpd lighttpd       171 Nov  9 23:32 nsupdate.txt
+drw-r--r--    2 named    named         4096 Aug 31 20:35 pri
+lrwxrwxrwx    1 root     root             8 Aug 31 20:35 root.cache -> named.ca
+drw-r--r--    2 named    named         4096 Aug 31 20:35 sec
+-rw-r--r--    1 named    named          242 Aug 28 17:54 users.json
+```
