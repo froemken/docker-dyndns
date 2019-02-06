@@ -68,6 +68,22 @@ make build
 make run
 ```
 
+If you get error `bind: address already in use` you should try deactivating local DNS server:
+
+```
+sudo nano /etc/systemd/resolved.conf
+```
+
+Change line `#DNSStubListener=yes` to `DNSStubListener=no` and save file. Now restart resolv service:
+
+```
+sudo systemctl restart systemd-resolved
+```
+
+Now try to start container again:
+
+`docker start [container-id]`
+
 ### Configure Router or whatever
 
 The URI has to look like that, if you use FritzBox:
