@@ -74,7 +74,30 @@ If you get error `bind: address already in use` you should try deactivating loca
 sudo nano /etc/systemd/resolved.conf
 ```
 
-Change line `#DNSStubListener=yes` to `DNSStubListener=no` and save file. Now restart resolv service:
+Change line `#DNSStubListener=yes` to `DNSStubListener=no` and save file. This will deactivate local DNS Server
+which listen at 127.0.0.52:52.
+
+Create new file: `/usr/lib/systemd/resolv.conf` with following content:
+
+```
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
+
+I'm using the public DNS Servers of Google here.
+Remove resolv.conf from /etc
+
+```
+sudo rm /etc/resolv.conf
+```
+
+And link our new created file to /etc:
+
+```
+sudo ln -sf /usr/lib/systemd/resolv.conf /etc/resolv.conf
+```
+
+Now restart resolv service:
 
 ```
 sudo systemctl restart systemd-resolved
